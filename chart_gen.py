@@ -43,6 +43,7 @@ def generate_percentage_change(old_pc,new_pc):
 
     # Calculate changes
     changes= [round(100*(new_pc[i]- old_pc[i])/old_pc[i]) for i in range(N_SCORES)]
+
     # And overall average change
     avg_change = round(sum(changes)/N_SCORES)
 
@@ -62,13 +63,13 @@ def generate_percentage_change(old_pc,new_pc):
     startx = 560
     starty = 410
     for i in range(N_SCORES):
-        ax.text(startx,starty + 198*i, s= f"{changes[i]}%", c = "#2F326B", ha = 'center', va = 'center', size = 8)
+        ax.text(startx,starty + 198*i, s= f"{changes[i]}%", c = "#2F326B", ha = 'center', va = 'center', size = 9)
 
     # Add the avg change
     ax.text(400,190,s= f"{avg_change}%", c="#2F326B", ha = 'center', va = 'center')
     # Adjust figure properties then save
     fig.tight_layout()
-    plt.show()
+    #plt.show()
     plt.savefig("plots/coltest1.png")
     return fig
 
@@ -179,5 +180,5 @@ def generate_rose_chart(scores):
             ha = "center", va = "center")
 
     plt.axis("off")
-    fig.savefig("plots/test_chart.png")
-    plt.show()
+    fig.savefig(f"plots/test_chart_{round(results[4])}.png")
+    #plt.show()
