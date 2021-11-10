@@ -182,3 +182,9 @@ def generate_rose_chart(scores):
     plt.axis("off")
     fig.savefig(f"plots/test_chart_{round(results[4])}.png")
     #plt.show()
+
+print("Hello there.")
+old_scores = input("Please enter the original scores in the following order: [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]")
+new_scores = input("Now enter the old scores:")
+
+generate_content(old_scores,new_scores)
