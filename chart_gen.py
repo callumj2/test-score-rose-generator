@@ -27,19 +27,51 @@ INNER_BORDER_COL = "#323232"
 DARK_BLUE = "#2F326B"
 GREY = "#808080"
 
+#_______________________________________________________________________________________________________________________
+# Main function
+
 def generate_content(old_scores, new_scores):
+    """ Generate_Content
+    The main function, takes old scores and new scores then generates and saves
+    graphical components.
+
+    Args:
+        old_scores (List of floats XOR List of ints): [description]
+        new_scores (List of floats XOR List of ints): [description]
+    """
 
     # Total available marks for [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]
     TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
     
-    # Convert raw scores to percentages
-    old_pc = [old_scores[i]/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
-    new_pc = [new_scores[i]/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
+    # If Raw scores are input:
+    if float(old_scores[0]) >= 1:
+        # Convert raw scores to percentages
+        old_pc = [int(old_scores[i])/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
+        new_pc = [int(new_scores[i])/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
+    
+    # Otherwise percentages have been used as input, so we convert to float and keep
+    else: old_pc, new_pc = [float(i) for i in old_scores], [float(i) for i in new_scores]
+
+    # Generate the rose charts for each set of scores
     generate_rose_chart(old_pc)
-    generate_rose_chart(new_pc)
+    generate_rose_chart(new_pc, suffix = 2)
+    # Generate the percentage change graphic
     generate_percentage_change(old_pc,new_pc)
 
+#_______________________________________________________________________________________________________________________
+# Helper functions
+
 def generate_percentage_change(old_pc,new_pc):
+    """ generate_percentage_change
+    Generates the graphic showing percentage changes for each focus area.
+
+    Args:
+        old_pc (List of Floats): The old percentage scores.
+        new_pc (List of Floats): New percentage scores
+
+    Returns:
+        [type]: [description]
+    """
 
     # Calculate changes
     changes= [round(100*(new_pc[i]- old_pc[i])/old_pc[i]) for i in range(N_SCORES)]
@@ -73,7 +105,7 @@ def generate_percentage_change(old_pc,new_pc):
     plt.savefig("plots/coltest1.png")
     return fig
 
-def generate_rose_chart(scores):
+def generate_rose_chart(scores, suffix = 1):
     """
     Generates a rose chart for a single set of results.
 
@@ -92,16 +124,16 @@ def generate_rose_chart(scores):
     results = np.array(scores)
 
     # Going from [Mindset, Memory, Processing, Notes, Time, Wellbeing, Exams]
-    # to [Processing, Notes,Memory, Time, Mindset, Wellbeing, Exams]
-    new_order = [2,3,1,4,0,5,6]
+    # to ['Notes', 'Processing\nInformation', 'Exams', 'Mindset', 'Wellbeing',
+    #  'Time\nManagement', 'Memory']
+
+    new_order = [3,2,6,0,5,4,1]
     results = [results[i] for i in new_order]
 
-    # Now need to 'spin the wheel' to match original format
-    # new_order = [4,0,5,6,2,3,1]
-    # results = [results[i] for i in new_order]
 
+    x_min = np.pi/14
     x_max = 2*np.pi
-    x_coords = np.linspace(0, x_max, n_points, endpoint=False)
+    x_coords = np.linspace(x_min, x_min + x_max, n_points, endpoint=False)
     width = x_max / n_points
 
     #___________________________________________________________________________
@@ -155,24 +187,28 @@ def generate_rose_chart(scores):
     # Adding Text and Titles
 
     # Add Percentages
+    ROTATION_OFFSET = 12.8571429 # pi/14 to degrees
     OFFSET = -0.06 # Offset from top of bar
     for i in range(n_points):
         ax.text(x=x_coords[i], y=results[i] + inner_radius + OFFSET, s=f"{round(100*results[i])}%",c = "white",
                     fontsize = 13.5, # Font size
                     ha = "center", va = "center", # Center justified rotation
                     # Rotation changes over all values
-                    rotation = 270 + (i * 360/n_points) if i in [0,1,2,3] else 90 + (i * 360/n_points))
+                    rotation = 270 + ROTATION_OFFSET + (i * 360/n_points) if i in [0,1,2,3] \
+                        else 90 + ROTATION_OFFSET + (i * 360/n_points))
 
     # Add Titles
-    OFFSET = 0.1
+    OFFSET = 0.15 # Offset from circle edge
+
     # Metrics
-    METRICS = ["Mindset","Memory","Processing\nInformation", "Notes", "Time", "Wellbeing", "Exams"]
+    METRICS = ['Notes', 'Processing\nInformation', 'Exams', 'Mindset', 'Wellbeing', 'Time\nManagement', 'Memory']
     for i in range(n_points):
         ax.text(x=x_coords[i], y= 1 + inner_radius + OFFSET, s=METRICS[i],c = "#00B0F0",
-                    fontsize = 15, # Font size
+                    fontsize = 16, # Font size
                     ha = "center", va = "center", # Center justified rotation
                     # Rotation changes over all values
-                    rotation = 270 + (i * 360/n_points) if i in [0,1,2,3] else 90 + (i * 360/n_points))
+                    rotation = 270 + ROTATION_OFFSET + (i * 360/n_points) if i in [0,1,2,3] \
+                        else 90 + ROTATION_OFFSET + (i * 360/n_points))
 
     # Center writing
     ax.text(x=0,y=0, s="Study profile", c = CENTER_WRITING_COL,
@@ -180,5 +216,10 @@ def generate_rose_chart(scores):
             ha = "center", va = "center")
 
     plt.axis("off")
-    fig.savefig(f"plots/test_chart_{round(results[4])}.png")
-    #plt.show()
+    fig.savefig(f"plots/test_chart_{suffix}.png")
+    # plt.show()
+
+print("Hello there.")
+old_scores = input("Please enter the original scores, separated by commas, in the following order: Mindset, Memory, Processing Info, Notes, Time, Wellbeing, Exams\n")
+new_scores = input("Now enter the new scores:\n")
+generate_content(old_scores.split(','),new_scores.split(','))
