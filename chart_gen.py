@@ -58,7 +58,7 @@ def generate_post_content(old_scores, new_scores):
     # Generate the percentage change graphic
     generate_percentage_change(old_pc,new_pc)
 
-def generate_pre_content(scores):
+def generate_pre_content(scores, filename = ""):
     """ Generate_Content
     The main function, takes diagnostic scores and saves results as a rose 
     chart.
@@ -79,7 +79,7 @@ def generate_pre_content(scores):
     else: pc = [float(i) for i in scores]
 
     # Generate the rose chart for the results
-    generate_rose_chart(pc)
+    generate_rose_chart(pc, filename = filename)
 
 #_______________________________________________________________________________________________________________________
 # Helper functions
@@ -128,7 +128,7 @@ def generate_percentage_change(old_pc,new_pc):
     plt.savefig("plots/coltest1.png")
     return fig
 
-def generate_rose_chart(scores, suffix = 1):
+def generate_rose_chart(scores, suffix = 1, filename = ""):
     """
     Generates a rose chart for a single set of results.
 
@@ -239,7 +239,10 @@ def generate_rose_chart(scores, suffix = 1):
             ha = "center", va = "center")
 
     plt.axis("off")
-    fig.savefig(f"plots/test_chart_{suffix}.png")
+    if filename:
+        fig.savefig(f"plots/{filename}.png")
+    else:
+        fig.savefig(f"plots/test_chart_{suffix}.png")
     plt.show()
 
 # print("Hello there.")
