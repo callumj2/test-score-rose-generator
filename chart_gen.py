@@ -240,10 +240,13 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
 
     plt.axis("off")
     if filename:
-        fig.savefig(f"plots/{filename}.png")
+        fig.savefig(f"{filename}.png")
     else:
         fig.savefig(f"plots/test_chart_{suffix}.png")
     plt.show()
+
+#_______________________________________________________________________________
+# Below code is for demonstration purposes
 
 # print("Hello there.")
 # old_scores = input("Please enter the original scores, separated by commas, in the following order: Mindset, Memory, Processing Info, Notes, Time, Wellbeing, Exams\n")
