@@ -243,7 +243,7 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
         fig.savefig(f"{filename}.png")
     else:
         fig.savefig(f"plots/test_chart_{suffix}.png")
-    plt.show()
+    #plt.show()
 
 #_______________________________________________________________________________
 # Below code is for demonstration purposes

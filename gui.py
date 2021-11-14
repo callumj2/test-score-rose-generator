@@ -1,12 +1,14 @@
 import tkinter as tk
 from chart_gen import *
+from copy_to_clipboard import *
 
+# Function Call for the 'Generate!' button
 def callback(boxes, f):
-    print("Running")
     scores = [box.get() for box in boxes]
     generate_pre_content(scores, filename = f.get())
-    print("Complete.")
+    send_to_clipboard(f"{f.get()}.png")
 
+# Main driver
 def main():
     METRICS = ["Mindset", "Memory", "Processing", "Notes", "Time", "Wellbeing", "Exams"]
     window = tk.Tk()
