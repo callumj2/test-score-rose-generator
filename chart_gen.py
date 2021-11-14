@@ -30,7 +30,7 @@ GREY = "#808080"
 #_______________________________________________________________________________________________________________________
 # Main function
 
-def generate_content(old_scores, new_scores):
+def generate_post_content(old_scores, new_scores):
     """ Generate_Content
     The main function, takes old scores and new scores then generates and saves
     graphical components.
@@ -57,6 +57,29 @@ def generate_content(old_scores, new_scores):
     generate_rose_chart(new_pc, suffix = 2)
     # Generate the percentage change graphic
     generate_percentage_change(old_pc,new_pc)
+
+def generate_pre_content(scores, filename = ""):
+    """ Generate_Content
+    The main function, takes diagnostic scores and saves results as a rose 
+    chart.
+
+    Args:
+        scores (List of floats XOR List of ints): [description]
+    """
+
+    # Total available marks for [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]
+    TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
+    
+    # If Raw scores are input:
+    if float(scores[0]) >= 1:
+        # Convert raw scores to percentages
+        pc = [int(scores[i])/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
+    
+    # Otherwise percentages have been used as input, so we convert to float and keep
+    else: pc = [float(i) for i in scores]
+
+    # Generate the rose chart for the results
+    generate_rose_chart(pc, filename = filename)
 
 #_______________________________________________________________________________________________________________________
 # Helper functions
@@ -105,7 +128,7 @@ def generate_percentage_change(old_pc,new_pc):
     plt.savefig("plots/coltest1.png")
     return fig
 
-def generate_rose_chart(scores, suffix = 1):
+def generate_rose_chart(scores, suffix = 1, filename = ""):
     """
     Generates a rose chart for a single set of results.
 
@@ -216,10 +239,16 @@ def generate_rose_chart(scores, suffix = 1):
             ha = "center", va = "center")
 
     plt.axis("off")
-    fig.savefig(f"plots/test_chart_{suffix}.png")
-    # plt.show()
+    if filename:
+        fig.savefig(f"{filename}.png")
+    else:
+        fig.savefig(f"plots/test_chart_{suffix}.png")
+    #plt.show()
 
-print("Hello there.")
-old_scores = input("Please enter the original scores, separated by commas, in the following order: Mindset, Memory, Processing Info, Notes, Time, Wellbeing, Exams\n")
-new_scores = input("Now enter the new scores:\n")
-generate_content(old_scores.split(','),new_scores.split(','))
+#_______________________________________________________________________________
+# Below code is for demonstration purposes
+
+# print("Hello there.")
+# old_scores = input("Please enter the original scores, separated by commas, in the following order: Mindset, Memory, Processing Info, Notes, Time, Wellbeing, Exams\n")
+# new_scores = input("Now enter the new scores:\n")
+# generate_content(old_scores.split(','),new_scores.split(','))
