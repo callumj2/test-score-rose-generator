@@ -13,7 +13,7 @@ def main():
     METRICS = ["Mindset", "Memory", "Processing", "Notes", "Time", "Wellbeing", "Exams"]
     window = tk.Tk()
     greeting = tk.Label(text="Hello!, Welcome to chart_gen", background = "#34A2FE")
-
+    
     # Create labels and input boxes
     labels = [tk.Label(text=m) for m in METRICS]
     boxes = [tk.Entry() for i in METRICS]
