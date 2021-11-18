@@ -20,8 +20,6 @@ The aims of this project are to:
 ## Known issues / TODO
 
 TODO:
-- Adjust ordering within the rose chart to match original look.
-- Add negative arrows for negative % changes.
-- Add slider scale for overall score.
-- Generalse and condense functions into 1 python file.
-- Export to standalone.
+- Incorporate Grad Pack Percentage Changes
+  - Add negative arrows for negative % changes.
+  - Add slider scale for overall score.
