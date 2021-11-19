@@ -3,10 +3,10 @@ from chart_gen import *
 from copy_to_clipboard import *
 
 # Function Call for the 'Generate!' button
-def callback(boxes, f):
+def callback(boxes):
     scores = [box.get() for box in boxes]
-    generate_pre_content(scores, filename = f.get())
-    send_to_clipboard(f"{f.get()}.png")
+    generate_pre_content(scores, filename = "results")
+    send_to_clipboard(f"results.png")
 
 # Main driver
 def main():
@@ -22,13 +22,15 @@ def main():
     for i in range(len(METRICS)):
         labels[i].pack()
         boxes[i].pack()
-    # Add an option to include a filename
-    filereq = tk.Label(text= "OPTIONAL: Name your file below")
-    filebox = tk.Entry()
-    filereq.pack()
-    filebox.pack()
+
+    # Add instructions
+    tk.Label(text = "Click below to copy results to clipboard", pady= 6).pack()
+
     # Add a button to generate underneath
-    button = tk.Button(text="Generate!", command = lambda: callback(boxes, filebox))
+    button = tk.Button(text="Generate!", command = lambda: callback(boxes))
     button.pack()
+
+    # Also allow the enter key to generate results
+    window.bind('<Return>', (lambda event: callback(boxes)))
 
     window.mainloop()
