@@ -108,7 +108,7 @@ def generate_percentage_change(old_pc,new_pc):
     changes = [changes[i] for i in new_order]
 
     # Load template image and generate blank canvas
-    img = mpimg.imread('assets/column_template.png')
+    img = mpimg.imread('../assets/column_template.png')
     fig, ax = plt.subplots(dpi=500)
     ax.axis('off')
     # Add the figure
@@ -125,7 +125,7 @@ def generate_percentage_change(old_pc,new_pc):
     # Adjust figure properties then save
     fig.tight_layout()
     #plt.show()
-    plt.savefig("plots/coltest1.png")
+    plt.savefig("../plots/coltest1.png")
     return fig
 
 def generate_rose_chart(scores, suffix = 1, filename = ""):
@@ -242,7 +242,7 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
     if filename:
         fig.savefig(f"{filename}.png")
     else:
-        fig.savefig(f"plots/test_chart_{suffix}.png")
+        fig.savefig(f"../plots/test_chart_{suffix}.png")
     #plt.show()
 
 #_______________________________________________________________________________
