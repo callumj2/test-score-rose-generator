@@ -40,17 +40,8 @@ def generate_post_content(old_scores, new_scores):
         new_scores (List of floats XOR List of ints): [description]
     """
 
-    # Total available marks for [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]
-    TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
-    
-    # If Raw scores are input:
-    if float(old_scores[0]) >= 1:
-        # Convert raw scores to percentages
-        old_pc = [int(old_scores[i])/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
-        new_pc = [int(new_scores[i])/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
-    
-    # Otherwise percentages have been used as input, so we convert to float and keep
-    else: old_pc, new_pc = [float(i) for i in old_scores], [float(i) for i in new_scores]
+    old_pc = get_percentages(old_scores)
+    new_pc = get_percentages(new_scores)
 
     # Generate the rose charts for each set of scores
     generate_rose_chart(old_pc)
@@ -66,12 +57,27 @@ def generate_pre_content(scores, filename = ""):
     Args:
         scores (List of floats XOR List of ints): [description]
     """
+    # Convert input to percentages
+    pc = get_percentages(scores)
 
+    # Generate the rose chart for the results
+    generate_rose_chart(pc, filename = filename)
+
+#_______________________________________________________________________________________________________________________
+# Helper functions
+
+def get_percentages(scores):
+    """ get_percentages
+    Formats scores in the order [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams] into a list of floats.
+
+    Args:
+        scores ([Str]): A list of strings of either raw scores (eg. 20) or percentages (eg. 0.3).
+    """
     # Total available marks for [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]
     TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
 
     # Generate space for percentages
-    pc = [0] * len(N_SCORES)
+    pc = [0] * N_SCORES
 
     # Convert each score to a percentage if raw
     for i in range(len(scores)):
@@ -79,11 +85,8 @@ def generate_pre_content(scores, filename = ""):
         # Otherwise leave as float
         else: pc[i] = float(scores[i])
 
-    # Generate the rose chart for the results
-    generate_rose_chart(pc, filename = filename)
-
-#_______________________________________________________________________________________________________________________
-# Helper functions
+    # Return percentages
+    return pc
 
 def generate_percentage_change(old_pc,new_pc):
     """ generate_percentage_change
@@ -244,7 +247,7 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
         fig.savefig(f"{filename}.png")
     else:
         fig.savefig(f"plots/test_chart_{suffix}.png")
-    #plt.show()
+    plt.show()
 
 #_______________________________________________________________________________
 # Below code is for demonstration purposes
