@@ -69,14 +69,15 @@ def generate_pre_content(scores, filename = ""):
 
     # Total available marks for [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]
     TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
-    
-    # If Raw scores are input:
-    if float(scores[0]) >= 1:
-        # Convert raw scores to percentages
-        pc = [int(scores[i])/TOTAL_AVAILABLE[i] for i in range(N_SCORES)]
-    
-    # Otherwise percentages have been used as input, so we convert to float and keep
-    else: pc = [float(i) for i in scores]
+
+    # Generate space for percentages
+    pc = [0] * len(N_SCORES)
+
+    # Convert each score to a percentage if raw
+    for i in range(len(scores)):
+        if float(scores[i]) >= 1: pc[i] = int(scores[i])/TOTAL_AVAILABLE[i]
+        # Otherwise leave as float
+        else: pc[i] = float(scores[i])
 
     # Generate the rose chart for the results
     generate_rose_chart(pc, filename = filename)
