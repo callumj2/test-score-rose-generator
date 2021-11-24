@@ -24,7 +24,7 @@ def main():
         boxes[i].pack()
 
     # Add instructions
-    tk.Label(text = "Click below to copy results to clipboard", pady= 6).pack()
+    tk.Label(text = "Click below or hit enter to copy results to clipboard", pady= 6).pack()
 
     # Add a button to generate underneath
     button = tk.Button(text="Generate!", command = lambda: callback(boxes))
