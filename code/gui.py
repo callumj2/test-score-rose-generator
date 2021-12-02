@@ -33,4 +33,10 @@ def main():
     # Also allow the enter key to generate results
     window.bind('<Return>', (lambda event: callback(boxes)))
 
+    # And finally bind the closing of the window to exiting the program
+    def on_closing():
+        window.destroy()
+
+    window.protocol("WM_DELETE_WINDOW", on_closing)
+
     window.mainloop()
