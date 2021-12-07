@@ -12,13 +12,15 @@ def callback(boxes):
 def main():
     METRICS = ["Mindset", "Memory", "Processing", "Notes", "Time", "Wellbeing", "Exams"]
     window = tk.Tk()
-    greeting = tk.Label(text="Hello!, Welcome to chart_gen", background = "#34A2FE")
-    
+    # Create and pack a greeting
+    tk.Label(text="Hello! Welcome to chart_gen", background = "#34A2FE").pack()
+    # Also add a copywrite reference
+    tk.Label(text = "Made by Callum Johnson, for use with Elevate Education.", pady= 6,  background = "#34A2FE").pack()
+
     # Create labels and input boxes
     labels = [tk.Label(text=m) for m in METRICS]
     boxes = [tk.Entry() for i in METRICS]
     # Pack all components into window
-    greeting.pack()
     for i in range(len(METRICS)):
         labels[i].pack()
         boxes[i].pack()
@@ -30,7 +32,7 @@ def main():
     button = tk.Button(text="Generate!", command = lambda: callback(boxes))
     button.pack()
 
-    # Also allow the enter key to generate results
+    # Also allow hitting the enter key to generate results
     window.bind('<Return>', (lambda event: callback(boxes)))
 
     # And finally bind the closing of the window to exiting the program
