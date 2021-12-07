@@ -12,10 +12,11 @@ def callback(boxes):
 def main():
     METRICS = ["Mindset", "Memory", "Processing", "Notes", "Time", "Wellbeing", "Exams"]
     window = tk.Tk()
+    # Set the window title
+    window.title("chart_gen")
+    
     # Create and pack a greeting
-    tk.Label(text="Hello! Welcome to chart_gen", background = "#34A2FE").pack()
-    # Also add a copywrite reference
-    tk.Label(text = "Made by Callum Johnson, for use with Elevate Education.", pady= 6,  background = "#34A2FE").pack()
+    tk.Label(text="Hello! Welcome to chart_gen by Callum Johnson", background = "#34A2FE").pack()
 
     # Create labels and input boxes
     labels = [tk.Label(text=m) for m in METRICS]
