@@ -1,12 +1,18 @@
 import tkinter as tk
 from chart_gen import *
 from copy_to_clipboard import *
+import os
 
 # Function Call for the 'Generate!' button
 def callback(boxes):
     scores = [box.get() for box in boxes]
+    # Generate the content
     generate_pre_content(scores, filename = "results")
+    # Send it to the clipboard
     send_to_clipboard(f"results.png")
+    # Delete the saved image
+    os.remove("results.png")
+
 
 # Main driver
 def main():
