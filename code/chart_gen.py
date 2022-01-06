@@ -244,9 +244,9 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
 
     plt.axis("off")
     if filename:
-        fig.savefig(f"{filename}.png")
+        fig.savefig(f"{filename}.jpg")
     else:
-        fig.savefig(f"../plots/test_chart_{suffix}.png")
+        fig.savefig(f"../plots/test_chart_{suffix}.jpg")
 
 #_______________________________________________________________________________
 

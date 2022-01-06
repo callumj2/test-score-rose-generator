@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['__main__.py'],
-             pathex=['C:\\Users\\callu\\Documents\\elevate-rose-chart\\code'],
+             pathex=[],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -37,4 +37,8 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None , icon='..\\executable\\icon\\Shrikant-Rawa-Animals-Dog.ico')
+          entitlements_file=None , icon='../executable/icon/Shrikant-Rawa-Animals-Dog.ico')
+app = BUNDLE(exe,
+             name='__main__.app',
+             icon='../executable/icon/Shrikant-Rawa-Animals-Dog.ico',
+             bundle_identifier=None)
