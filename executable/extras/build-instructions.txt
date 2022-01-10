@@ -1,1 +1,1 @@
-pyinstaller --noconsole --distpath ../executable --clean -F -i ../executable/icon/Shrikant-Rawa-Animals-Dog.ico __main__.py
+pyinstaller --noconsole --distpath ../executable --clean -F -i ../assets/Logo/logo.ico __main__.py

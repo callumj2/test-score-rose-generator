@@ -37,4 +37,4 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None , icon='..\\executable\\icon\\Shrikant-Rawa-Animals-Dog.ico')
+          entitlements_file=None , icon='..\\assets\\Logo\\logo.ico')
