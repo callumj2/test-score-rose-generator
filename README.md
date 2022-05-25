@@ -4,7 +4,7 @@ This Repository began as a project designed for use specifically with a single t
 
 A rose chart is a novel way to present test scores, and is very visually intuitive and useful for exhibiting student changes across one term to the next. An example is shown below:
 
-![](assets/Sample_small.png)
+![](assets/Sample.png)
 
 Intuitively the student's percentage score is shaded to fill the same percentage of that subject slice. This method has been used in
 the past using Microsoft Excel templates, however results and formatting can be inconsistent due to necessary human placement of labels.
