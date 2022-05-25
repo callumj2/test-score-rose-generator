@@ -1,6 +1,6 @@
 # test-score-rose-generator
 
-This Repository began as a project designed for use specifically with a single tutoring company, however with their approval I've made this code public in the interest of sharing the benefits of this work with people who may find use in it.
+This Repository began as a project designed for use specifically with a single tutoring company, however this code has been made public in the interest of sharing the benefits of this work with people who may find use in it.
 
 A rose chart is a novel way to present test scores, and is very visually intuitive and useful for exhibiting student changes across one term to the next. An example is shown below:
 
