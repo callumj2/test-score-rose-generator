@@ -26,16 +26,16 @@ import matplotlib.image as mpimg
 N_SCORES = 7 
 
 # Total available marks for categories
-# (In this case: [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams])
+# (In this case: [English, Art, Maths, History, Sport, Drama, Science])
 TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
 
-# In the case of data entry being ordered differently to data presentation
-# (In this case we want to order the % Changes as [Processing, Notes, Memory, Time, Mindset, Wellbeing, Exams]) 
+# In the case of data entry being ordered differently to data presentation (Very company specific, but included nonetheless)
+# (In this case we want to order the % Changes as [Maths, History, Art, Sport, English, Drama, Science]) 
 PERCENTAGE_ORDERING = [2,3,1,4,0,5,6]
 
 # Similarly for the rose chart we want a new ordering, and also to slightly change the presented labels
 ROSE_ORDERING = [3,2,6,0,5,4,1]
-ROSE_LABELS = ['Notes', 'Processing\nInformation', 'Exams', 'Mindset', 'Wellbeing', 'Time\nManagement', 'Memory']
+ROSE_LABELS = ['History', 'Maths', 'Science', 'English', 'Drama', 'Sport', 'Art']
 
 # Some colouring options
 CENTER_WRITING_COL = "#2F326B"

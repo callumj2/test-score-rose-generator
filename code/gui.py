@@ -30,7 +30,7 @@ def callback(boxes):
 
 # Main driver
 def main():
-    METRICS = ["Mindset", "Memory", "Processing", "Notes", "Time", "Wellbeing", "Exams"]
+    METRICS = ["English", "Art", "Maths", "History", "Sport", "Drama", "Science"]
     window = tk.Tk()
     # Set the window title
     window.title("chart_gen")
