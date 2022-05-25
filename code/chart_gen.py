@@ -4,22 +4,40 @@ Created by
     name: Callum Johnson
     mail: callum.johnson.aafc@gmail.com
 
-This is a tool created for generating elevate graduation pack visualisations.
+This is a tool created for generating tutoring/coaching score visualisations.
 When run, the tool will ask for a set of initial score results, followed by
-the set of post diagnostic results.
+the set of post-program results.
 Upon providing these, two rose charts with score scales will be generated
 (one for pre and one for post) as well as a column diagram detailing the
 % changes for this student. These images will be saved to the source file
-location.
+location, as well as being copied to the user's clipboard.
 
 """
+
+#_______________________________________________________________________________________________________________________
+# Global Variables and setup
+
 # Imports
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-# Global Variables
-N_SCORES = 7
+# Number of metrics
+N_SCORES = 7 
+
+# Total available marks for categories
+# (In this case: [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams])
+TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
+
+# In the case of data entry being ordered differently to data presentation
+# (In this case we want to order the % Changes as [Processing, Notes, Memory, Time, Mindset, Wellbeing, Exams]) 
+PERCENTAGE_ORDERING = [2,3,1,4,0,5,6]
+
+# Similarly for the rose chart we want a new ordering, and also to slightly change the presented labels
+ROSE_ORDERING = [3,2,6,0,5,4,1]
+ROSE_LABELS = ['Notes', 'Processing\nInformation', 'Exams', 'Mindset', 'Wellbeing', 'Time\nManagement', 'Memory']
+
+# Some colouring options
 CENTER_WRITING_COL = "#2F326B"
 PERCENTAGE_COL = "white"
 METRIC_COL = "#00B0F0"
@@ -28,16 +46,16 @@ DARK_BLUE = "#2F326B"
 GREY = "#808080"
 
 #_______________________________________________________________________________________________________________________
-# Main function
+# Main functions
 
 def generate_post_content(old_scores, new_scores):
     """ Generate_Content
-    The main function, takes old scores and new scores then generates and saves
-    graphical components.
+    Takes old scores and new scores then generates and saves graphical components.
 
     Args:
-        old_scores (List of floats XOR List of ints): [description]
-        new_scores (List of floats XOR List of ints): [description]
+        old_scores (List of floats XOR List of ints): The list of old test scores, 
+        can also be already in percentage format (eg. 0.7)
+        new_scores (List of floats XOR List of ints): The list of new test scores
     """
 
     old_pc = get_percentages(old_scores)
@@ -51,11 +69,11 @@ def generate_post_content(old_scores, new_scores):
 
 def generate_pre_content(scores, filename = ""):
     """ Generate_Content
-    The main function, takes diagnostic scores and saves results as a rose 
-    chart.
+    Takes a single set of scores, and generates a rose chart for that scoreset.
 
     Args:
-        scores (List of floats XOR List of ints): [description]
+        scores (List of floats XOR List of ints): The list of test scores, 
+        can also be already in percentage format (eg. 0.7)
     """
     # Convert input to percentages
     pc = get_percentages(scores)
@@ -73,8 +91,6 @@ def get_percentages(scores):
     Args:
         scores ([Str]): A list of strings of either raw scores (eg. 20) or percentages (eg. 0.3).
     """
-    # Total available marks for [Mindset,Memory,Processing Info, Notes, Time, Wellbeing, Exams]
-    TOTAL_AVAILABLE = [70,30,40,50,140,50,80]
 
     # Generate space for percentages
     pc = [0] * N_SCORES
@@ -97,7 +113,7 @@ def generate_percentage_change(old_pc,new_pc):
         new_pc (List of Floats): New percentage scores
 
     Returns:
-        [type]: [description]
+        plt.Figure : The produced graphic, plotted in matplotlib
     """
 
     # Calculate changes
@@ -108,8 +124,7 @@ def generate_percentage_change(old_pc,new_pc):
 
     # Going from [Mindset, Memory, Processing, Notes, Time, Wellbeing, Exams]
     # to [Processing, Notes,Memory, Time, Mindset, Wellbeing, Exams]
-    new_order = [2,3,1,4,0,5,6]
-    changes = [changes[i] for i in new_order]
+    changes = [changes[i] for i in PERCENTAGE_ORDERING]
 
     # Load template image and generate blank canvas
     img = mpimg.imread('../assets/column_template.png')
@@ -153,9 +168,7 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
     # Going from [Mindset, Memory, Processing, Notes, Time, Wellbeing, Exams]
     # to ['Notes', 'Processing\nInformation', 'Exams', 'Mindset', 'Wellbeing',
     #  'Time\nManagement', 'Memory']
-
-    new_order = [3,2,6,0,5,4,1]
-    results = [results[i] for i in new_order]
+    results = [results[i] for i in ROSE_ORDERING]
 
 
     x_min = np.pi/14
@@ -227,10 +240,8 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
     # Add Titles
     OFFSET = 0.15 # Offset from circle edge
 
-    # Metrics
-    METRICS = ['Notes', 'Processing\nInformation', 'Exams', 'Mindset', 'Wellbeing', 'Time\nManagement', 'Memory']
     for i in range(n_points):
-        ax.text(x=x_coords[i], y= 1 + inner_radius + OFFSET, s=METRICS[i],c = "#00B0F0",
+        ax.text(x=x_coords[i], y= 1 + inner_radius + OFFSET, s=ROSE_LABELS[i],c = "#00B0F0",
                     fontsize = 16, # Font size
                     ha = "center", va = "center", # Center justified rotation
                     # Rotation changes over all values
@@ -243,6 +254,8 @@ def generate_rose_chart(scores, suffix = 1, filename = ""):
             ha = "center", va = "center")
 
     plt.axis("off")
+
+    # If a custom filename is provided, save it there - otherwise save to plots.
     if filename:
         fig.savefig(f"{filename}.png")
     else:

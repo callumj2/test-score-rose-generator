@@ -1,9 +1,20 @@
+""" copy_to_clipboard.py
+
+Created by 
+    name: Callum Johnson
+    mail: callum.johnson.aafc@gmail.com
+
+Helper tool for use with the file gui.py.
+
+Code largely (Entirely) taken from the following StackOverflow post:
+
+https://stackoverflow.com/questions/34322132/copy-image-to-clipboard
+
+"""
 from io import BytesIO
 import win32clipboard
 from PIL import Image
 
-# Code taken from
-# https://stackoverflow.com/questions/34322132/copy-image-to-clipboard
 def send_to_clipboard(filepath):
     # Open the image and convert to Bitmap
     image = Image.open(filepath)

@@ -1,3 +1,17 @@
+""" gui.py
+
+Created by 
+    name: Callum Johnson
+    mail: callum.johnson.aafc@gmail.com
+
+This code contains an interactive gui for use with the functions defined in 
+'chart_gen.py' by Callum Johnson. Further explanation for the purpose and usage
+of this tool is provided in both 'chart_gen.py' as well as in this repository's
+'README.md' file.
+
+"""
+
+# Import dependencies
 import tkinter as tk
 from chart_gen import *
 from copy_to_clipboard import *
@@ -48,4 +62,5 @@ def main():
 
     window.protocol("WM_DELETE_WINDOW", on_closing)
 
+    # Run the program
     window.mainloop()
